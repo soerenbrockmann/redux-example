@@ -1,12 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+import { createStore, compose, combineReducers } from 'redux';
+import { Provider } from 'react-redux';
+import App from './components/app/App';
 import * as serviceWorker from './serviceWorker';
+import { nameReducer } from './reducers';
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+// const combinedReducers = combineReducers({ name: nameReducer });
+
+const store = createStore(nameReducer, composeEnhancers());
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
